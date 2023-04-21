@@ -1,0 +1,21 @@
+.form-add {
+  border-radius: 5%;
+  border: 1px solid #222;
+  margin: 10px;
+  padding: 20px;
+}
+
+.form-add form {
+  margin-bottom: 20px;
+}
+
+form textarea {
+  resize:none;
+}
+
+.label {
+  color: #222;
+  font-size: 25px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 800;
+}

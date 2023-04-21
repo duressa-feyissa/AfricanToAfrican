@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authenticate = require('../middleWare/authentication');
 const authorize = require('../middleWare/authorization');
+const mongoose = require('mongoose');
 const { Program } = require('../models/program');
 const { Session, validate } = require('../models/session');
 

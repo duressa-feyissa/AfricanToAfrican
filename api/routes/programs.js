@@ -6,8 +6,8 @@ const authorize = require('../middleWare/authorization');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-  const programs = await Program.find();
+router.get('/', authenticate, authorize(['Mentor']), async (req, res) => {
+  const programs = await Program.find({mentor: req.user._id});
   res.send(programs);
 });
 
@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
   res.send(program);
 });
 
-router.post('/programs', authenticate, authorize(['Mentor']), async (req, res) => {
+router.post('/', authenticate, authorize(['Mentor']), async (req, res) => {
   const { error } = validate(req.body);
   if (error) 
     return res.status(400).send(error.details[0].message);
@@ -51,7 +51,7 @@ router.delete('/:id', authenticate, authorize(['Mentor']), async (req, res) => {
 
 
 
-router.post('/programs/:id/announcements', authenticate, authorize(['Mentor']), async (req, res) => {
+router.post('/:id/announcements', authenticate, authorize(['Mentor']), async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id))
     return res.status(400).send('Invalid program Id');
 

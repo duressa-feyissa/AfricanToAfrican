@@ -20,12 +20,20 @@ router.post('/', authenticate, authorize(['Mentor']), async (req, res) => {
   const { error } = validate(req.body);
   if (error) 
     return res.status(400).send(error.details[0].message);  
+  
+  if (!mongoose.isValidObjectId(programId))
+    return res.status(400).send('Invalid program Id');
+  
+  let program = await Program.findById(programId);
+  if (!program)
+      return res.status(404).send('Program not found');
 
   const topic = new Topic({
     title: req.body.title,
     description: req.body.description,
     duration: req.body.duration,
-    resources: req.body.resources
+    resources: req.body.resources,
+    programId: req.body.programId
   });
   const newTopic = await topic.save();
   res.status(201).send(newTopic);

@@ -10,6 +10,10 @@ const topicSchema = new mongoose.Schema({
     type: String, 
     required: true,
   },
+  programId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    required: true 
+  },
   duration: {
     start: {
       type: Date,
@@ -33,20 +37,6 @@ const topicSchema = new mongoose.Schema({
           required: true
         }
       }
-    ],
-    files: 
-    [
-      { title:
-        { 
-          type: String, 
-          required: true 
-        }, 
-        name: 
-        { 
-          type: String,
-          required: true
-        }
-      }
     ]
   }
 });
@@ -57,6 +47,7 @@ function validateTopic(topic) {
   const schema = Joi.object().keys({
     title: Joi.string().required(),
     description: Joi.string().required(),
+    programId: Joi.string().required(),
     duration: Joi.object().keys({
       start: Joi.date().required(),
       end: Joi.date().required()
@@ -65,10 +56,6 @@ function validateTopic(topic) {
       links: Joi.array().items(Joi.object().keys({
         title: Joi.string().required(),
         url: Joi.string().required()
-      })).required(),
-      files: Joi.array().items(Joi.object().keys({
-        title: Joi.string().required(),
-        name: Joi.string().required()
       })).required()
     }).required()
   });

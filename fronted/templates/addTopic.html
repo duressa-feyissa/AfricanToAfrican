@@ -1,0 +1,123 @@
+{% extends "M-layout.html" %} {% block script %}
+<script src="../static/js/addTopic.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/addProgram.css" />
+{% endblock %} 
+{% block content %}
+<div class="row">
+  <div class="side">
+    <h2>Programs</h2>
+    <div class="program">
+      <h5></h5>
+      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+      <p>More Text</p>
+      <div class="fakeimg" style="height: 60px">Image</div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="form-add">
+      <form name="registration" id="registration" action="" method="post">
+        <legend class="mt-3 mb-4">
+          <h1
+            style="
+              font-family: 'Times New Roman', Times, serif;
+              font-weight: 900;
+              font-size: 60px;
+              color: #222;
+              text-align: center;
+            "
+          >
+            New Topic
+          </h1>
+        </legend>
+
+        <div class="form-group pt-2">
+          <label for="title" class="label">Title:</label>
+          <input type="text" class="form-control" name="title" id="title" required />
+        </div>
+        <div class="form-group pt-2">
+          <label for="description" class="label">Description:</label>
+          <textarea name="description" class="form-control" id="description" required></textarea>
+        </div>
+        <div class="form-group pt-2">
+          <label for="option" class="label">Program </label>
+          <select name="option" id="option">
+            {% for option in options %}
+            <option value="{{ option._id }}">{{ option.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group pt-2">
+          <label for="start" class="label">Start Date:</label>
+          <input type="datetime-local" class="form-control" name="start" id="start" required />
+        </div>
+        <div class="form-group pt-2">
+          <label for="end" class="label">End Date:</label>
+          <input type="datetime-local" class="form-control" name="end" id="end" required />
+        </div>
+        <div class="form-group pt-2">
+          <label for="resources" class="label">Resources:</label>
+          <div id="resources-list">
+            <div>
+              <input
+                type="text"
+                name="resourceTitle"
+                style="max-width: 250px; display: inline; margin: 4px;"
+                class="form-control"
+                placeholder="Title"
+                required
+              />
+              <input
+                type="url"
+                style="max-width: 250px; display: inline; margin: 4px;"
+                name="resourceURL"
+                class="form-control"
+                placeholder="URL"
+                required
+              />
+            </div>
+          </div>
+          <button type="button" id="add-resource-btn">Add Resource</button>
+        </div>
+        <br />
+        <button
+          type="submit"
+          id="submit"
+          class="btn btn-secondary btn-outline-light"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="side">
+    <div class="my-info">
+      <h2>About Me</h2>
+      <h5>Photo of me:</h5>
+      <div class="fakeimg" style="height: 200px">Image</div>
+      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+    </div>
+    <div class="notification">
+      <h3>More Text</h3>
+      <p>Lorem ipsum dolor sit ame.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#add-resource-btn").click(function () {
+      $("#resources-list").append(`
+      <div>
+        <input type="text" style="max-width: 250px; display: inline; margin: 4px;" name="resourceTitle" class="form-control" placeholder="Title" required>
+        <input type="url" style="max-width: 250px; display: inline; margin: 4px;" name="resourceURL" class="form-control" placeholder="URL" required>
+        <button type="button" class="remove-resource-btn">Remove</button>
+      </div>
+    `);
+    });
+
+    $(document).on("click", ".remove-resource-btn", function () {
+      $(this).parent().remove();
+    });
+  });
+</script>
+{% endblock %}

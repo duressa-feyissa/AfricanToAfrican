@@ -33,43 +33,30 @@ $(document).ready(function() {
       }
     },
     submitHandler: function(form) {
+      const formData = $(form).serializeArray();
       $.ajax({
-        url: 'http://localhost:3001/api/students',
+        url: '/process_M',
         type: 'POST',
         data: $(form).serialize(),
-        contentType: "application/json; charset=utf-8",
         success: function(response) {
-          alert(12, response);
+          window.location.href = '/mentors/login'
         },
         error: function(jqXHR, textStatus, errorThrown) {
           if (jqXHR.status == 400) {
-            alert(1, jqXHR.responseText);
+            setTimeout(function() {
+              $('#myAlert').addClass('show');
+              $('#myAlert').html('<h5>Email already registered!</h5>')
+            }, 1000);
+
+            setTimeout(function() {
+              $('#myAlert').removeClass('show');
+            }, 5000);
+
           } else {
-            alert('Error: ' + errorThrown);
+            alert('Error2: ' + errorThrown);
           }
         }
-      });   
-    }
+      });
+    }    
   });
 });
-/*
-submitHandler: function(form) {
-  $.ajax({
-    url: '/signup',
-    type: 'POST',
-    data: $(form).serialize(),
-    success: function(response) {
-      // If the form submission is successful, display a success message
-      alert(response);
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      // If the form submission fails, display an error message
-      if (jqXHR.status == 400) {
-        $('#email-error').text(jqXHR.responseText);
-      } else {
-        alert('Error: ' + errorThrown);
-      }
-    }
-  });
-}
-*/

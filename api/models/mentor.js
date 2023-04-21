@@ -75,7 +75,7 @@ function validateMentor(mentor) {
     username: Joi.string().required(),
     email: Joi.string().email().required(),
     expertise: Joi.array().items(Joi.string()),
-    programs: Joi.array().items(Joi.objectId()),
+    programs: Joi.array().items(Joi.string()),
     role: Joi.string().default('Mentor'),
     password: Joi.string().min(6).max(100).required(),
     image: Joi.string().default('user.png')
